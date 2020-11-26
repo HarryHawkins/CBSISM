@@ -1,0 +1,24 @@
+  
+ {% block title %}IIOT{% endblock title %}
+ 
+ {% block content %}
+ <h1>Add Endpoint</h1>
+  
+  {% if submitted %}
+    <p class="success">
+     Your message was submitted successfully. Thank you.
+   </p>
+ 
+ {% else %}
+   <form action="" method="post" novalidate>
+   <table>
+     {{ form.as_table }}
+     <tr>
+       <td>&nbsp;</td>
+       <td><input type="submit" value="Submit"></td>
+     </tr>
+   </table>
+   {% csrf_token %}
+   </form>
+ {% endif %}
+ {% endblock content %}
