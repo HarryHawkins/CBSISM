@@ -1,7 +1,7 @@
 from django import forms
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-
+from .scripts import hello
 class EndpointForm(forms.Form):
     """form for adding an endpoint device, used for configuring new nodes"""
 
@@ -119,9 +119,11 @@ def add_endpoint(request):
         form = EndpointForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            print(cd)
+            print(cd.get('username'))
             # assert False
-            return HttpResponseRedirect('/add_endpoint?submitted=True')
+            hi = hello.hello(cd.get('username'),cd.get('password'),cd.get('ip_address'))
+            hi.show()
+            return HttpResponseRedirect('?submitted=True')
     else:
         form = EndpointForm()
         if 'submitted' in request.GET:
