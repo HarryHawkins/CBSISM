@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .scripts import hello
 class EndpointForm(forms.Form):
+    #try and put this into a ModelForm
     """form for adding an endpoint device, used for configuring new nodes"""
 
     node_name = forms.CharField(max_length=200, label='Node name')
@@ -114,15 +115,17 @@ class EndpointForm(forms.Form):
     metric_zfs = forms.BooleanField(label="ZFS performance statistics",required=False)
 
 def add_endpoint(request):
+    """Method for adding endpoint"""
     submitted = False
     if request.method == 'POST':
         form = EndpointForm(request.POST)
         if form.is_valid():
-            cd = form.cleaned_data
-            print(cd.get('username'))
-            # assert False
-            hi = hello.hello(cd.get('username'),cd.get('password'),cd.get('ip_address'))
+            cD = form.cleaned_data
+            print(cD.get('username'))
+            #run custom external script with params
+            hi = hello.hello(cD.get('username'),cD.get('password'),cD.get('ip_address'))
             hi.show()
+            #enter params into db
             return HttpResponseRedirect('?submitted=True')
     else:
         form = EndpointForm()
