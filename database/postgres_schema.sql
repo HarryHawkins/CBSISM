@@ -9,17 +9,17 @@ CREATE TABLE "node" (
   "node_id" SERIAL PRIMARY KEY,
   "device_name" varchar,
   "ip_address" varchar,
-  "port" int,
+  "port_number" int,
   "protocol" varchar,
   "location" varchar,
   "operating_system" varchar,
-  "enabled_metrics_id" int
+  "enabled_metrics_id" int UNIQUE
 );
 
 CREATE TABLE "users_nodes" (
   "user_nodes_id" SERIAL PRIMARY KEY,
-  "user_id" int,
-  "node_id" int
+  "user_id" int UNIQUE,
+  "node_id" int UNIQUE
 );
 
 CREATE TABLE "enabled_metrics" (
@@ -116,4 +116,3 @@ ALTER TABLE "node_metrics_data" ADD FOREIGN KEY ("node_id") REFERENCES "node" ("
 ALTER TABLE "users_nodes" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("user_id");
 
 ALTER TABLE "node" ADD FOREIGN KEY ("node_id") REFERENCES "users_nodes" ("node_id");
-
