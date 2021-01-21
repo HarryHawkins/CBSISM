@@ -1,5 +1,5 @@
 
-# FYP - Harry Hawkins - A cloud-based solution to IIOT server monitoring
+# FYP - Harry Hawkins - A cloud-based solution to IIOT server monitoring (CBSISM)
 Final Year Project Repository
 Supervisor: George Parisis
 
