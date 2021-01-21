@@ -29,10 +29,7 @@ class Endpoint(models.Model):
     operating_system = models.CharField(max_length=2,
                                       choices=OS_CHOICES,
                                       default=UBUNTU)
-    location = models.CharField(max_length=200)
-
-
-
+    location = models.CharField(max_length=200, default="NA")
 
     #these are metrics to monitor, this will have to be in a user friendly display
     #as there are a lot of choices... - taken list from nodeexpoter supported metrics list

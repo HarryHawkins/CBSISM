@@ -1,7 +1,7 @@
 from django import forms
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from .scripts import hello
+from .scripts import insert
 class EndpointForm(forms.Form):
     #try and put this into a ModelForm
     """form for adding an endpoint device, used for configuring new nodes"""
@@ -9,15 +9,15 @@ class EndpointForm(forms.Form):
     node_name = forms.CharField(max_length=200, label='Node name')
     ip_address = forms.GenericIPAddressField(label='IP Address')
     port_number = forms.CharField(max_length=200, label="Port Number")
-    HTTPS = 'S'
-    HTTP = 'P'
+    HTTPS = 'HTTPS'
+    HTTP = 'HTTP'
     protocol_choices = (
         (HTTPS, 'HTTPS'),
         (HTTP, 'HTTP'),
     )
     protocol = forms.CharField(label="Communication protocol", widget=forms.Select(choices=protocol_choices))
     username = forms.CharField(max_length=200, label='Username')
-    password = forms.CharField(widget=forms.PasswordInput(), label="Password")
+    password = forms.CharField(widget=forms.PasswordInput(), label="Password") #needs encryption soon
 
     UBUNTU = 'UB'
     CENTOS = 'CE'
@@ -130,11 +130,11 @@ def add_endpoint(request):
     if request.method == 'POST':
         form = EndpointForm(request.POST)
         if form.is_valid():
-            cD = form.cleaned_data
-            print(cD.get('username'))
+            cleaned_data = form.cleaned_data
+            print("this is the username",cleaned_data.get('username'))
             #run custom external script with params
-            hi = hello.hello(cD.get('username'),cD.get('password'),cD.get('ip_address'))
-            hi.show()
+            entry = insert.insert(cleaned_data)
+            entry.show()
             #enter params into db
             return HttpResponseRedirect('?submitted=True')
     else:
