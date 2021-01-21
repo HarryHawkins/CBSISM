@@ -8,6 +8,14 @@ class EndpointForm(forms.Form):
 
     node_name = forms.CharField(max_length=200, label='Node name')
     ip_address = forms.GenericIPAddressField(label='IP Address')
+    port_number = forms.CharField(max_length=200, label="Port Number")
+    HTTPS = 'S'
+    HTTP = 'P'
+    protocol_choices = (
+        (HTTPS, 'HTTPS'),
+        (HTTP, 'HTTP'),
+    )
+    protocol = forms.CharField(label="Communication protocol", widget=forms.Select(choices=protocol_choices))
     username = forms.CharField(max_length=200, label='Username')
     password = forms.CharField(widget=forms.PasswordInput(), label="Password")
 
@@ -20,6 +28,8 @@ class EndpointForm(forms.Form):
         (FEDORAIOT, 'Fedora IOT'),
     )
     operating_system = forms.CharField(label="IIOT Device Operating System", widget=forms.Select(choices=OS_CHOICES))
+    location = forms.CharField(max_length=200,label="Location")
+
     #these are metrics to monitor, this will have to be in a user friendly display
     #as there are a lot of choices... - taken list from nodeexpoter supported metrics list
     #Exposes ARP statistics from /proc/net/arp - Linux

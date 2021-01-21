@@ -6,9 +6,18 @@ class Endpoint(models.Model):
     """An endpoint device, used for configuring new nodes"""
     node_name = models.CharField(max_length=200)
     ip_address = models.CharField(max_length=200)
+    port_number = models.CharField(max_length=200)
+    HTTPS = 'S'
+    HTTP = 'P'
+    protocol_choices = (
+        (HTTPS,'HTTPS'),
+        (HTTP,'HTTP'),
+    )
+    protocol = models.CharField(max_length=2,
+                                      choices=protocol_choices,
+                                      default=HTTPS)
     username = models.CharField(max_length=200)
     password = models.CharField(max_length=200) # this must be pw type in form/view
-
     UBUNTU = 'UB'
     CENTOS = 'CE'
     FEDORAIOT = 'FE'
@@ -20,6 +29,11 @@ class Endpoint(models.Model):
     operating_system = models.CharField(max_length=2,
                                       choices=OS_CHOICES,
                                       default=UBUNTU)
+    location = models.CharField(max_length=200)
+
+
+
+
     #these are metrics to monitor, this will have to be in a user friendly display
     #as there are a lot of choices... - taken list from nodeexpoter supported metrics list
     #Exposes ARP statistics from /proc/net/arp - Linux

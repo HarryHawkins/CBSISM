@@ -11,6 +11,8 @@ CREATE TABLE "node" (
   "ip_address" varchar,
   "port_number" int,
   "protocol" varchar,
+  "username" varchar,
+  "password" varchar, 
   "location" varchar,
   "operating_system" varchar,
   "enabled_metrics_id" int UNIQUE
