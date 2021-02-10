@@ -1,6 +1,33 @@
 from django.http import HttpResponse  
-
-
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from .forms import EndpointForm
 def index(request):
     """index request handling"""
     return HttpResponse("Hello, world. You're at the configuration index.")
+
+def detail(request, endpoint_id):
+    response = "You're looking at the results of endpoint %s."
+    return HttpResponse(response % endpoint_id)
+
+def add_endpoint(request):
+    """Method for adding endpoint"""
+    submitted = False
+    if request.method == 'POST':
+        form = EndpointForm(request.POST)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+            print("this is the username",cleaned_data.get('username'))
+            #enter params into db
+            Endpoint = form.save()
+
+            return HttpResponseRedirect('?submitted=True')
+    else:
+        form = EndpointForm()
+        if 'submitted' in request.GET:
+            submitted = True
+ 
+    return render(request, 
+        'add_endpoint/add_endpoint.html',
+        {'form': form, 'submitted': submitted}
+        )

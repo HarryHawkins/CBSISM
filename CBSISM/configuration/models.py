@@ -2,7 +2,7 @@ from django.db import models
 
 
 # Create your models here.
-class Endpoint(models.Model): 
+class Endpoint(models.Model):
     """An endpoint device, used for configuring new nodes"""
     node_name = models.CharField(max_length=200)
     ip_address = models.CharField(max_length=200)
