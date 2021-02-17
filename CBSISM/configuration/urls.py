@@ -6,6 +6,7 @@ from . import views
 #from . import add_endpoint
 urlpatterns = [
    path('', views.add_endpoint,name='Add Endpoint'),
+   path('update/<int:endpoint_id>/', views.update_endpoint,name='Update Endpoint'),
    path('<int:endpoint_id>/', views.detail, name='detail'),
 
    ]

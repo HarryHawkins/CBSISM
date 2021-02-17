@@ -1,7 +1,10 @@
 from django.http import HttpResponse  
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
-from .forms import EndpointForm
+from .forms import EndpointForm, UpdateEndpointForm
+from .models import Endpoint
+
 def index(request):
     """index request handling"""
     return HttpResponse("Hello, world. You're at the configuration index.")
@@ -31,3 +34,24 @@ def add_endpoint(request):
         'add_endpoint/add_endpoint.html',
         {'form': form, 'submitted': submitted}
         )
+
+def update_endpoint(request,endpoint_id):
+    """Method for updating endpoint"""
+    submitted = False
+    object = get_object_or_404(Endpoint, endpoint_id)
+    if request.method == 'POST':
+        form = UpdateEndpointForm(instance=object, data=request.POST)
+        if form.is_valid():
+            Endpoint = form.save()
+
+            return HttpResponseRedirect('?submitted=True')
+    else:
+        form = EndpointForm()
+        if 'submitted' in request.GET:
+            submitted = True
+ 
+    return render(request, 
+        'add_endpoint/add_endpoint.html',
+        {'form': form, 'submitted': submitted}
+        )
+
