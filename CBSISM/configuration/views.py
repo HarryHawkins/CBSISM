@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from .forms import EndpointForm, UpdateEndpointForm
 from .models import Endpoint
+from .scripts.automationScripts import verify_credentials
 
 def index(request):
     """index request handling"""
@@ -11,6 +12,7 @@ def index(request):
 
 def detail(request, endpoint_id):
     response = "You're looking at the results of endpoint %s."
+    
     return HttpResponse(response % endpoint_id)
 
 def add_endpoint(request):
@@ -23,8 +25,8 @@ def add_endpoint(request):
             print("this is the username",cleaned_data.get('username'))
             #enter params into db
             Endpoint = form.save()
-
-            return HttpResponseRedirect('?submitted=True')
+            verify_credentials.login_test(cleaned_data.get('ip_address'),cleaned_data.get('username'),cleaned_data.get('password'),cleaned_data.get('SSH_rsa_pub')) 
+            HttpResponseRedirect('?submitted=True')
     else:
         form = EndpointForm()
         if 'submitted' in request.GET:

@@ -18,6 +18,7 @@ class Endpoint(models.Model):
                                       default=HTTPS)
     username = models.CharField(max_length=200)
     password = models.CharField(max_length=200) # this must be pw type in form/view
+    SSH_rsa_pub = models.CharField(max_length=500) #ssh_host_rsa_key.pub  eg AAJVFOEHEOIFHSEOHFOSHF9....
     UBUNTU = 'UB'
     CENTOS = 'CE'
     FEDORAIOT = 'FE'
@@ -30,7 +31,6 @@ class Endpoint(models.Model):
                                       choices=OS_CHOICES,
                                       default=UBUNTU)
     location = models.CharField(max_length=200, default="NA")
-
     #these are metrics to monitor, this will have to be in a user friendly display
     #as there are a lot of choices... - taken list from nodeexpoter supported metrics list
     #Exposes ARP statistics from /proc/net/arp - Linux
