@@ -1,4 +1,8 @@
- {% block title %}IIOT{% endblock title %}
+{% load static %}
+<head>
+  <link rel="stylesheet"  href="{%  static  'css/style.css'  %}">
+</head>
+<title>{% block title %}CBSISM{% endblock title %}</title>
  
  {% block content %}
  <h1>Add Endpoint</h1>
@@ -14,10 +18,21 @@
      {{ form.as_p }}
      <tr>
        <td>&nbsp;</td>
+       <label onclick="myFunction()">*Click for more info on excluding metrics*</label>
+       <script>
+        function myFunction() {
+          if (window.confirm('Enter the names of the metrics to disable them. Seperate the metrics with commas (eg bonding,boottime,cpu)\
+          \n\n\Click OK to see a list of enabled by default metrics, Cancel to Stay here'))
+          {
+          window.open('https://github.com/prometheus/node_exporter#enabled-by-default', '_blank');
+          };
+        }
+        </script>        
        <td><input type="submit" value="Submit"></td>
      </tr>
    </table>
    {% csrf_token %}
    </form>
+     
  {% endif %}
  {% endblock content %}
