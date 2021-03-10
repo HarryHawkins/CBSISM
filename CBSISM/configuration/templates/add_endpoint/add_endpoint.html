@@ -5,6 +5,7 @@
 <title>{% block title %}CBSISM{% endblock title %}</title>
  
  {% block content %}
+ <div class="content">
  <h1>Add Endpoint</h1>
   
   {% if submitted %}
@@ -18,7 +19,7 @@
      {{ form.as_p }}
      <tr>
        <td>&nbsp;</td>
-       <label onclick="myFunction()">*Click for more info on excluding metrics*</label>
+       <label onclick="myFunction()">->>Click here for more info on excluding metrics<<-</label>
        <script>
         function myFunction() {
           if (window.confirm('Enter the names of the metrics to disable them. Seperate the metrics with commas (eg bonding,boottime,cpu)\
@@ -34,5 +35,6 @@
    {% csrf_token %}
    </form>
      
+ </div>
  {% endif %}
  {% endblock content %}

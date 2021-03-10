@@ -1,4 +1,5 @@
 from django.db import models
+from .scripts.automationScripts import install_NE_on_node
 
 
 # Create your models here.
@@ -31,7 +32,10 @@ class Endpoint(models.Model):
                                       choices=OS_CHOICES,
                                       default=UBUNTU)
     location = models.CharField(max_length=200, default="NA")
-    exclude_metric = models.CharField(max_length=200, default="") #comma seperated metrics to exclude, hover over shows list of defaults
+    exclude_metric = models.CharField(max_length=200, default="None") #comma seperated metrics to exclude, hover over shows list of defaults
+
+    def install_NE(self,IP_address,username,password,SSH_rsa_pub):
+        install_NE_on_node.install_NE(IP_address,username,password,SSH_rsa_pub) 
 
     #these are metrics to monitor, this will have to be in a user friendly display
     #as there are a lot of choices... - taken list from nodeexpoter supported metrics list

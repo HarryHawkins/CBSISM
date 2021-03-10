@@ -13,7 +13,7 @@ def createSSHClient(server, port, user, password):
     client.connect(server, port, user, password)
     return client
 
-def login_test(ip, uname,pw,rsa):
+def install_NE(ip, uname,pw,rsa):
     ssh = createSSHClient(ip, 22, uname, pw)
     scp = SCPClient(ssh.get_transport())
     scp.put('/home/harry/FYP/Solution/CBSISM/configuration/scripts/automationScripts/install.sh', '/home/pi/install.sh')
