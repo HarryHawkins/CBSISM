@@ -4,7 +4,6 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from .forms import EndpointForm, UpdateEndpointForm
 from .models import Endpoint
-#from .scripts.automationScripts import install_NE_on_node
 
 def index(request):
     """index request handling"""

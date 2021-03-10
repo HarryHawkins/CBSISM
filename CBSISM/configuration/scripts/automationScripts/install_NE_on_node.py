@@ -35,7 +35,7 @@ def install_NE(ip, uname,pw,rsa):
             if "LICENSE" in line.strip('\n'):
                 print("done")
                 client.close()
-                return(stdout.readlines())
+                return(stdout.readlines(),True)
     return(verified)
     
 # login_test("192.168.0.50","pi","password","AAAAB3NzaC1yc2EAAAADAQABAAABAQC1VrjntLv0+sH0VVU6rKlqwIW7a1AJdpMklYwKNesFtne3a0uKJ1FRbmyCcJUchZ4ByS1pjZZ4oKs/YMGpEXoxgJuuCo/RQjiCMbmY4PkdQ1egwNI/3ej4ELE5T9xgzrzg3F6XLIIXZTXbZfZeB82tydhnL+mk39/6OZbpo5IShiAg1HWs4Sdsbi5GBumD75rkLqBYwMf4t5syiIn804waRZExBPrkqMaRhI6W/H+bSEuvGhRtZG6V6XwdMUcC36Kgyjstjhq6zto4pkkrP28VR/AQL3aziir6NWC72NHVwQ027tMWfZlgJQuEuqf8U80ETq7t/EXVvjn6aE0fc1RB") #should print username on endpoint

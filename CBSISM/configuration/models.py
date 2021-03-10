@@ -19,7 +19,7 @@ class Endpoint(models.Model):
                                       default=HTTPS)
     username = models.CharField(max_length=200)
     password = models.CharField(max_length=200) # this must be pw type in form/view
-    SSH_rsa_pub = models.CharField(max_length=500) #ssh_host_rsa_key.pub  eg AAJVFOEHEOIFHSEOHFOSHF9....
+    SSH_rsa_pub = models.CharField(max_length=1000) #ssh_host_rsa_key.pub  eg AAJVFOEHEOIFHSEOHFOSHF9....
     UBUNTU = 'UB'
     CENTOS = 'CE'
     FEDORAIOT = 'FE'
@@ -35,7 +35,7 @@ class Endpoint(models.Model):
     exclude_metric = models.CharField(max_length=200, default="None") #comma seperated metrics to exclude, hover over shows list of defaults
 
     def install_NE(self,IP_address,username,password,SSH_rsa_pub):
-        install_NE_on_node.install_NE(IP_address,username,password,SSH_rsa_pub) 
+        return(install_NE_on_node.install_NE(IP_address,username,password,SSH_rsa_pub) )
 
     #these are metrics to monitor, this will have to be in a user friendly display
     #as there are a lot of choices... - taken list from nodeexpoter supported metrics list
