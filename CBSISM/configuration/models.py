@@ -23,14 +23,16 @@ class Endpoint(models.Model):
     UBUNTU = 'UB'
     CENTOS = 'CE'
     FEDORAIOT = 'FE'
+    RAS_PI = 'PI'
     OS_CHOICES = (
         (UBUNTU, 'Ubuntu'),
         (CENTOS, 'CentOS'),
         (FEDORAIOT, 'Fedora IOT'),
+        (RAS_PI, 'Raspberry Pi'),
     )
     operating_system = models.CharField(max_length=2,
                                       choices=OS_CHOICES,
-                                      default=UBUNTU)
+                                      default=RAS_PI)
     location = models.CharField(max_length=200, default="NA")
     exclude_metric = models.CharField(max_length=200, default="None") #comma seperated metrics to exclude, hover over shows list of defaults
 

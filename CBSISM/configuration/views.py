@@ -1,9 +1,10 @@
-from django.http import HttpResponse  
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from .forms import EndpointForm, UpdateEndpointForm
 from .models import Endpoint
+from django.contrib import messages
 
 def index(request):
     """index request handling"""
@@ -25,7 +26,7 @@ def add_endpoint(request):
             #enter params into db
             Endpoint = form.save()
             Endpoint.install_NE(cleaned_data.get('IP_address'),cleaned_data.get('username'),cleaned_data.get('password'),cleaned_data.get('SSH_rsa_pub'))
-            #verify_credentials.login_test(cleaned_data.get('IP_address'),cleaned_data.get('username'),cleaned_data.get('password'),cleaned_data.get('SSH_rsa_pub')) 
+            messages.success(request, 'Endpoint details updated.')
             HttpResponseRedirect('?submitted=True')
     else:
         form = EndpointForm()
@@ -40,7 +41,7 @@ def add_endpoint(request):
 def update_endpoint(request,endpoint_id):
     """Method for updating endpoint"""
     submitted = False
-    object = get_object_or_404(Endpoint, endpoint_id)
+    object = get_object_or_404(endpoint_id) #Endpoint,endpoint_id
     if request.method == 'POST':
         form = UpdateEndpointForm(instance=object, data=request.POST)
         if form.is_valid():
