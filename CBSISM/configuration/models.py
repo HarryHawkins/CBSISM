@@ -28,7 +28,7 @@ class Endpoint(models.Model):
         (UBUNTU, 'Ubuntu'),
         (CENTOS, 'CentOS'),
         (FEDORAIOT, 'Fedora IOT'),
-        (RAS_PI, 'Raspberry Pi'),
+        (RAS_PI, 'Raspberry Pi 4'),
     )
     operating_system = models.CharField(max_length=2,
                                       choices=OS_CHOICES,
@@ -36,8 +36,8 @@ class Endpoint(models.Model):
     location = models.CharField(max_length=200, default="NA")
     exclude_metric = models.CharField(max_length=200, default="None") #comma seperated metrics to exclude, hover over shows list of defaults
 
-    def install_NE(self,IP_address,username,password,SSH_rsa_pub):
-        return(install_NE_on_node.install_NE(IP_address,username,password,SSH_rsa_pub) )
+    def install_NE(self,IP_address,username,password,os,SSH_rsa_pub):
+        return(install_NE_on_node.install_NE(IP_address,username,password,os,SSH_rsa_pub))
 
     #these are metrics to monitor, this will have to be in a user friendly display
     #as there are a lot of choices... - taken list from nodeexpoter supported metrics list

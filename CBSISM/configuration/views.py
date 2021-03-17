@@ -25,7 +25,7 @@ def add_endpoint(request):
             print("this is the username",cleaned_data.get('username'))
             #enter params into db
             Endpoint = form.save()
-            Endpoint.install_NE(cleaned_data.get('IP_address'),cleaned_data.get('username'),cleaned_data.get('password'),cleaned_data.get('SSH_rsa_pub'))
+            Endpoint.install_NE(cleaned_data.get('IP_address'),cleaned_data.get('username'),cleaned_data.get('password'),cleaned_data.get('operating_system'),cleaned_data.get('SSH_rsa_pub'))
             messages.success(request, 'Endpoint details updated.')
             HttpResponseRedirect('?submitted=True')
     else:
