@@ -11,14 +11,15 @@ from datetime import date
 
 
 def add_to_prometheus(node_name,ip_address):
-    with open('prometheus.yml', 'r') as file:
+    with open('/home/harry/FYP/Solution/CBSISM/configuration/scripts/dockerScripts/prometheus.yml', 'r') as file:
         prom_conf = file.read()
-    if node_name in prom_conf:
+    if node_name in prom_conf: #fix this as it will break if the name is a subname
         return(print("Node already added to prometheus"))
     today = str(date.today())
     #for each endpoint do this 
-    with open('last-container.txt', 'r') as file:
+    with open('/home/harry/FYP/Solution/CBSISM/configuration/scripts/dockerScripts/last-container.txt', 'r') as file:
         container_name = file.read()
+    os.chdir("/home/harry/FYP/Solution/CBSISM/configuration/scripts/dockerScripts")
     os.system("docker container stop "+container_name)
     os.system("docker container rm "+container_name)
     os.system("cp prometheus.yml prometheus-last.yml")
@@ -30,6 +31,5 @@ def add_to_prometheus(node_name,ip_address):
     os.system("touch last-container.txt")
     os.system("echo '"+today+"-prom'> last-container.txt")
 
-    
 
-add_to_prometheus('asus','192.168.0.90')
+

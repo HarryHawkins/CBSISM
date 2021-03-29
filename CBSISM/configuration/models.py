@@ -1,5 +1,6 @@
 from django.db import models
 from .scripts.automationScripts import install_NE_on_node
+from .scripts.dockerScripts import add_prometheus
 
 
 # Create your models here.
@@ -38,6 +39,9 @@ class Endpoint(models.Model):
 
     def install_NE(self,IP_address,username,password,os,SSH_rsa_pub):
         return(install_NE_on_node.install_NE(IP_address,username,password,os,SSH_rsa_pub))
+    
+    def add_target(self,node_name,ip):
+        return(add_prometheus.add_to_prometheus(node_name,ip))
 
     #these are metrics to monitor, this will have to be in a user friendly display
     #as there are a lot of choices... - taken list from nodeexpoter supported metrics list

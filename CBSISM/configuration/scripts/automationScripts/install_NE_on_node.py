@@ -28,7 +28,10 @@ def install_NE(ip, uname,pw,os,rsa):
     key = paramiko.RSAKey(data=base64.b64decode(bytes(rsa,'utf-8'))) #RSA public key ssh_host_rsa_key.pub
     client = paramiko.SSHClient() # must be added to known hosts!!
     client.get_host_keys().add(ip, 'ssh-rsa', key)
-    client.connect(ip, username=uname, password=pw) 
+    try:
+        client.connect(ip, username=uname, password=pw) 
+    except paramiko.ssh_exception.AuthenticationException:
+        return(print("Incorrect login details"))
     stdin, stdout, stderr = client.exec_command('whoami') 
     for line in stdout:
         if line.strip('\n')==uname:
