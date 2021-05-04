@@ -1,9 +1,9 @@
 
 # FYP - Harry Hawkins - A cloud-based solution to IIOT server monitoring (CBSISM)
+## NOTE: Most of the project code is in the following directory: CBSISM/configuration
 Final Year Project Repository
 Supervisor: George Parisis
 
-NOTE: Most of the important project code is in the following directory: CBSISM/configuration
 
 
 
