@@ -43,6 +43,8 @@ class Endpoint(models.Model):
     def add_target(self,node_name,ip):
         return(add_prometheus.add_to_prometheus(node_name,ip))
 
+    def remove_target(ip):
+        return(add_prometheus.remove_from_prometheus(ip))
     #these are metrics to monitor, this will have to be in a user friendly display
     #as there are a lot of choices... - taken list from nodeexpoter supported metrics list
     # #Exposes ARP statistics from /proc/net/arp - Linux

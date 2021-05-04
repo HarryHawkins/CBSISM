@@ -30,6 +30,26 @@ def add_to_prometheus(node_name,ip_address):
     os.system("docker run -d -p 9090:9090 --name "+today+"-prom prometheus")
     os.system("touch last-container.txt")
     os.system("echo '"+today+"-prom'> last-container.txt")
+    print("prometheus updated")
 
-#add_to_prometheus("pi","192.168.0.50")
+def remove_from_prometheus(ip_address):
+    with open('/home/harry/FYP/Solution/CBSISM/configuration/scripts/dockerScripts/prometheus.yml', 'r') as file:
+        prom_conf = file.read()
+    if ip_address not in prom_conf: #fix this as it will break if the name is a subname
+        return(print("Target not in prometheus, ignore and dont touch prometheus.yml"))
+    today = str(date.today())
+    #for each endpoint do this 
+    with open('/home/harry/FYP/Solution/CBSISM/configuration/scripts/dockerScripts/last-container.txt', 'r') as file:
+        container_name = file.read()
+    os.chdir("/home/harry/FYP/Solution/CBSISM/configuration/scripts/dockerScripts")
+    os.system("docker container stop "+container_name)
+    os.system("docker container rm "+container_name)
+    os.system("cp prometheus.yml prometheus-last.yml")
+    os.system("vim -e -c 'g/"+ip_address+"/.-3,.d' -c 'wq' prometheus.yml") #this removes the endpoint from prometheus, using vim regex
+    os.system("docker build -t prometheus .")
+    os.system("docker run -d -p 9090:9090 --name "+today+"-prom prometheus")
+    os.system("touch last-container.txt")
+    os.system("echo '"+today+"-prom'> last-container.txt")
+    print("prometheus updated")
+
 

@@ -26,7 +26,8 @@ def add_endpoint(request):
             #enter params into db
             Endpoint = form.save()
             installed = Endpoint.install_NE(cleaned_data.get('IP_address'),cleaned_data.get('username'),cleaned_data.get('password'),cleaned_data.get('operating_system'),cleaned_data.get('SSH_rsa_pub'))
-            if installed==True:
+            if installed[1]==True:
+                print("adding to prometheus")
                 Endpoint.add_target(cleaned_data.get('node_name'),cleaned_data.get('IP_address'))
             messages.success(request, 'Endpoint details updated.')
             HttpResponseRedirect('?submitted=True')
@@ -50,6 +51,7 @@ def remove_endpoint(request):
             print("this is the ip",cleaned_data.get('IP_address'))
             #enter params into db
             #Endpoint = form.save()#chage this to remove the endpoint
+            Endpoint.remove_target(cleaned_data.get('IP_address'))
             Endpoint.objects.filter(IP_address=cleaned_data.get('IP_address')).delete()
             messages.success(request, 'Endpoint removed')
             HttpResponseRedirect('?submitted=True')
