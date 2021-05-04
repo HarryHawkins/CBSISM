@@ -7,9 +7,10 @@
 
 {% block content %}
 <div class="content">
-  <h1>Add Endpoint</h1>
+  <h1>Remove Endpoint</h1>
   <a href='http://localhost:3000/'><button>View your dashboards</button></a>
-  <a href="http://127.0.0.1:8000/configuration/remove"><button>Remove an Endpoint</button></a>
+  <a href="http://127.0.0.1:8000/configuration/"><button>Back to Add Endpoint page</button></a>
+
 
   {% if messages %}
   <ul class="messages">
@@ -27,19 +28,10 @@
   {% else %}
   <form action="" method="post" novalidate>
     <table>
-      {{ form.as_p }}
+      {{ form.as_p}}
       <tr>
         <td>&nbsp;</td>
-        <label onclick="myFunction()">Click here for more info on excluding metrics</label>
-            <script>
-              function myFunction() {
-                if (window.confirm('Enter the names of the metrics to disable them. Seperate the metrics with commas (eg bonding,boottime,cpu)\
-          \n\n\Click OK to see a list of enabled by default metrics, Cancel to Stay here')) {
-                  window.open('https://github.com/prometheus/node_exporter#enabled-by-default', '_blank');
-                };
-              }
-            </script>
-            <td><input type="submit" value="Submit"></td>
+            <td><input type="submit" value="Remove"></td>
       </tr>
     </table>
     {% csrf_token %}

@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
-from .forms import EndpointForm, UpdateEndpointForm
+from .forms import EndpointForm, RemoveEndpointForm
 from .models import Endpoint
 from django.contrib import messages
 
@@ -40,23 +40,26 @@ def add_endpoint(request):
         {'form': form, 'submitted': submitted}
         )
 
-def update_endpoint(request,endpoint_id):
-    """Method for updating endpoint"""
+def remove_endpoint(request):
+    """Method for adding endpoint"""
     submitted = False
-    object = get_object_or_404(endpoint_id) #Endpoint,endpoint_id
     if request.method == 'POST':
-        form = UpdateEndpointForm(instance=object, data=request.POST)
-        if form.is_valid():
-            Endpoint = form.save()
-
-            return HttpResponseRedirect('?submitted=True')
+        form = RemoveEndpointForm(request.POST)
+        if  form.is_valid():
+            cleaned_data = form.cleaned_data
+            print("this is the ip",cleaned_data.get('IP_address'))
+            #enter params into db
+            #Endpoint = form.save()#chage this to remove the endpoint
+            Endpoint.objects.filter(IP_address=cleaned_data.get('IP_address')).delete()
+            messages.success(request, 'Endpoint removed')
+            HttpResponseRedirect('?submitted=True')
     else:
-        form = EndpointForm()
+        form = RemoveEndpointForm()
         if 'submitted' in request.GET:
             submitted = True
  
     return render(request, 
-        'add_endpoint/add_endpoint.html',
+        'remove_endpoint/remove_endpoint.html',
         {'form': form, 'submitted': submitted}
         )
 

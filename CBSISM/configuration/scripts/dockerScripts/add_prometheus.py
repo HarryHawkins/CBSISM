@@ -31,5 +31,5 @@ def add_to_prometheus(node_name,ip_address):
     os.system("touch last-container.txt")
     os.system("echo '"+today+"-prom'> last-container.txt")
 
-add_to_prometheus("pi","192.168.0.50")
+#add_to_prometheus("pi","192.168.0.50")
 
