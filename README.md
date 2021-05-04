@@ -3,6 +3,10 @@
 Final Year Project Repository
 Supervisor: George Parisis
 
+NOTE: Most of the important project code is in the following directory: CBSISM/configuration
+
+
+
 **Proposal - A cloud-based solution to IIOT server monitoring**
 **Introduction**
 As we become a more interconnected society, the use of Industrial Internet of Things (IIOT) devices is increasingly prevalent. They are commonly found in wind farms, electric vehicle charging stations, power stations, factories, as well as a whole array of industries. These devices often carry out important tasks such as reporting critical information from precise sensors and monitoring power levels in the grid. Because of this, security and stability are paramount. To ensure the stability of these IIOT devices, they must be monitored. By monitoring an IIOT server, you can verify optimal management of CPU, disc, memory resources and network traffic, as well as ensuring a whole assortment of optional and customisable metrics are in check. IIOT devices are often spread across the whole world. Having a monitoring system that is both scalable and secure is of utmost importance. The best way to ensure this is by hosting it in the cloud. The cloud is becoming the new normal for server solutions, due to the low cost, ease of deployment, high flexibility and low maintenance. 

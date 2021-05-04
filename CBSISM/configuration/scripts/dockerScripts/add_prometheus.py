@@ -11,6 +11,8 @@ from datetime import date
 
 
 def add_to_prometheus(node_name,ip_address):
+    #mount prometheus to volume persistnece
+
     with open('/home/harry/FYP/Solution/CBSISM/configuration/scripts/dockerScripts/prometheus.yml', 'r') as file:
         prom_conf = file.read()
     if node_name in prom_conf: #fix this as it will break if the name is a subname
