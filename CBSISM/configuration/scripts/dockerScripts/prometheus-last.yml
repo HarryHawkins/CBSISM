@@ -29,6 +29,3 @@ scrape_configs:
     - targets: ['localhost:9090']
 
 
-  - job_name: 'asus'
-    static_configs:
-      - targets: ['192.168.0.90:9100']
