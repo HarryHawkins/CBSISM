@@ -5,11 +5,6 @@
 import os
 from datetime import date
 
-#change this to a script that reads all endpoints from django db 
-#and adds them to the prometheus instance, this will not need args
-#this ensures no duplicates and adds all endpoints
-
-
 def add_to_prometheus(node_name,ip_address):
     #mount prometheus to volume persistnece
 
@@ -29,7 +24,7 @@ def add_to_prometheus(node_name,ip_address):
     os.system("echo \"    static_configs:\">> prometheus.yml")
     os.system("echo \"      - targets: ['"+ip_address+":9100']\">> prometheus.yml")
     os.system("docker build -t prometheus .")
-    os.system("docker run -d -p 9090:9090 --name "+today+"-prom prometheus")
+    os.system("docker run -d -p 9090:9090 --name "+today+"-prom  --mount source=prometheus,target=/prometheus prometheus")  #mounts the docker volume!
     os.system("touch last-container.txt")
     os.system("echo '"+today+"-prom'> last-container.txt")
     print("prometheus updated")
@@ -49,7 +44,7 @@ def remove_from_prometheus(ip_address):
     os.system("cp prometheus.yml prometheus-last.yml")
     os.system("vim -e -c 'g/"+ip_address+"/.-3,.d' -c 'wq' prometheus.yml") #this removes the endpoint from prometheus, using vim regex
     os.system("docker build -t prometheus .")
-    os.system("docker run -d -p 9090:9090 --name "+today+"-prom prometheus")
+    os.system("docker run -d -p 9090:9090 --name "+today+"-prom  --mount source=prometheus,target=/prometheus prometheus")  #mounts the docker volume!
     os.system("touch last-container.txt")
     os.system("echo '"+today+"-prom'> last-container.txt")
     print("prometheus updated")

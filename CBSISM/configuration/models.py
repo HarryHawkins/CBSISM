@@ -8,16 +8,6 @@ class Endpoint(models.Model):
     """An endpoint device, used for configuring new nodes"""
     node_name = models.CharField(max_length=200, unique=True)
     IP_address = models.CharField(max_length=200, unique=True)
-    port_number = models.CharField(max_length=200)
-    HTTPS = 'S'
-    HTTP = 'P'
-    protocol_choices = (
-        (HTTPS,'HTTPS'),
-        (HTTP,'HTTP'),
-    )
-    protocol = models.CharField(max_length=2,
-                                      choices=protocol_choices,
-                                      default=HTTPS)
     username = models.CharField(max_length=200)
     password = models.CharField(max_length=200) # this must be pw type in form/view
     SSH_rsa_pub = models.CharField(max_length=1000) #ssh_host_rsa_key.pub  eg AAJVFOEHEOIFHSEOHFOSHF9....
@@ -35,7 +25,6 @@ class Endpoint(models.Model):
                                       choices=OS_CHOICES,
                                       default=RAS_PI)
     location = models.CharField(max_length=200, default="NA")
-    exclude_metric = models.CharField(max_length=200, default="None") #comma seperated metrics to exclude, hover over shows list of defaults
 
     def install_NE(self,IP_address,username,password,os,SSH_rsa_pub):
         return(install_NE_on_node.install_NE(IP_address,username,password,os,SSH_rsa_pub))

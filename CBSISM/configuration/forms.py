@@ -6,7 +6,7 @@ class EndpointForm(ModelForm):
     class Meta:
         """form for adding an endpoint device, used for configuring new nodes"""
         model = Endpoint
-        fields = ['node_name','IP_address','protocol','username','password','SSH_rsa_pub','operating_system','location','exclude_metric']
+        fields = ['node_name','IP_address','username','password','SSH_rsa_pub','operating_system','location']
         # 'metric_arp','metric_bcache','metric_bonding','metric_boottime','metric_conntrack','metric_cpu',
         # 'metric_cpufreq','metric_diskstats','metric_edac','metric_entropy','metric_exec','metric_filefd',
         # 'metric_filesystem','metric_hwmon','metric_infiniband','metric_ipvs','metric_loadavg','metric_mdadm',
