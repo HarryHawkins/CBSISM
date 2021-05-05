@@ -5,7 +5,7 @@ import base64
 import paramiko
 from scp import SCPClient
 
-
+#create the ssh client used for communicating to endpoints
 def createSSHClient(server, port, user, password):
     client = paramiko.SSHClient()
     client.load_system_host_keys()
@@ -13,6 +13,7 @@ def createSSHClient(server, port, user, password):
     client.connect(server, port, user, password)
     return client
 
+#ssh to the client and install node exporter using the install bash scripts
 def install_NE(ip, uname,pw,os,rsa):
     ssh = createSSHClient(ip, 22, uname, pw)
     scp = SCPClient(ssh.get_transport())
@@ -39,7 +40,7 @@ def install_NE(ip, uname,pw,os,rsa):
             print("Connection and credentials verified")
     if verified:
         print("installing node")
-        stdin, stdout, stderr = client.exec_command('sudo bash ~/install-NE.sh') #why wont this run on ubuntu? maybe the sudo prompt issue?
+        stdin, stdout, stderr = client.exec_command('sudo bash ~/install-NE.sh') 
         for line in stdout:
             print('Output from server ' + line.strip('\n'))
             if "install-done" in line.strip('\n'):

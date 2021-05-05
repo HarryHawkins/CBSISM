@@ -23,11 +23,12 @@ def add_endpoint(request):
         if form.is_valid():
             cleaned_data = form.cleaned_data
             print("this is the username",cleaned_data.get('username'))
-            #enter params into db
-            Endpoint = form.save()
+            Endpoint = form.save() #save the endpoint info into django object
+            #install node exporter on endpoint
             installed = Endpoint.install_NE(cleaned_data.get('IP_address'),cleaned_data.get('username'),cleaned_data.get('password'),cleaned_data.get('operating_system'),cleaned_data.get('SSH_rsa_pub'))
             if installed[1]==True:
                 print("adding to prometheus")
+                #add as target to prometheus
                 Endpoint.add_target(cleaned_data.get('node_name'),cleaned_data.get('IP_address'))
             messages.success(request, 'Endpoint details updated.')
             HttpResponseRedirect('?submitted=True')
@@ -49,9 +50,9 @@ def remove_endpoint(request):
         if  form.is_valid():
             cleaned_data = form.cleaned_data
             print("this is the ip",cleaned_data.get('IP_address'))
-            #enter params into db
-            #Endpoint = form.save()#chage this to remove the endpoint
+            #remove target from prometheus
             Endpoint.remove_target(cleaned_data.get('IP_address'))
+            #remove django object for endpoint
             Endpoint.objects.filter(IP_address=cleaned_data.get('IP_address')).delete()
             messages.success(request, 'Endpoint removed')
             HttpResponseRedirect('?submitted=True')
