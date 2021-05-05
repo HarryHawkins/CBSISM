@@ -24,7 +24,7 @@ def add_to_prometheus(node_name,ip_address):
     os.system("echo \"    static_configs:\">> prometheus.yml")
     os.system("echo \"      - targets: ['"+ip_address+":9100']\">> prometheus.yml")
     os.system("docker build -t prometheus .")
-    os.system("docker run -d -p 9090:9090 --name "+today+"-prom  --mount source=prometheus,target=/prometheus prometheus")  #mounts the docker volume!
+    os.system("docker run -d -p 9090:9090 --name "+today+"-prom  --mount source=prometheus,target=/prometheus --ip 172.17.0.4 prometheus")  #mounts the docker volume!
     os.system("touch last-container.txt")
     os.system("echo '"+today+"-prom'> last-container.txt")
     print("prometheus updated")

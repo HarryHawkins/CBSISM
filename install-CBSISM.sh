@@ -21,7 +21,7 @@ cd CBSISM/configuration/scripts/dockerScripts
 docker build -t prometheus .
 docker volume create prometheus #create persistent volume
 #run prometheus from created image
-docker run -d -p 9090:9090 --name prometheus  --mount source=prometheus,target=/prometheus prometheus
+docker run -d -p 9090:9090 --name prometheus  --ip 172.17.0.4 --mount source=prometheus,target=/prometheus prometheus
 #run  grafana container
 docker run -d -p 3000:3000 grafana/grafana
 #run timescaledb container

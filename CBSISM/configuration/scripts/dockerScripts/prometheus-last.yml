@@ -29,6 +29,6 @@ scrape_configs:
     - targets: ['localhost:9090']
 
 
-  - job_name: 'Pi'
+  - job_name: 'Raspberry-Pi-Test'
     static_configs:
       - targets: ['192.168.0.50:9100']
