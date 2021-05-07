@@ -15,13 +15,16 @@ def detail(request, endpoint_id):
     
     return HttpResponse(response % endpoint_id)
 
+#this manages the interaction with the system from the UI.
+#Django uses the MVC architecture, this is the view
 def add_endpoint(request):
-    """Method for adding endpoint"""
+    """Method for adding an endpoint"""
     submitted = False
     if request.method == 'POST':
         form = EndpointForm(request.POST)
         if form.is_valid():
             cleaned_data = form.cleaned_data
+            #print username to console
             print("this is the username",cleaned_data.get('username'))
             Endpoint = form.save() #save the endpoint info into django object
             #install node exporter on endpoint
@@ -43,12 +46,13 @@ def add_endpoint(request):
         )
 
 def remove_endpoint(request):
-    """Method for adding endpoint"""
+    """Method for removing an endpoint"""
     submitted = False
     if request.method == 'POST':
         form = RemoveEndpointForm(request.POST)
         if  form.is_valid():
             cleaned_data = form.cleaned_data
+            #print ip to console
             print("this is the ip",cleaned_data.get('IP_address'))
             #remove target from prometheus
             Endpoint.remove_target(cleaned_data.get('IP_address'))
